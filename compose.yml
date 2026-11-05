@@ -1,0 +1,27 @@
+services:
+  ikuai-failover:
+    image: ghcr.io/bingbinghj/ikuai-failover:latest
+    restart: unless-stopped
+    stop_grace_period: 130s
+    env_file:
+      # 首次部署先将 .env.example 复制为 .env。
+      - .env
+    environment:
+      # 爱快路由器的管理账号密码，用于读取线路和管理规则，不用于本服务网页登录。
+      # 可留空，之后在配置页面或 data/config.yml 的 ikuai.username/password 中填写。
+      # 非空环境变量优先于配置文件；希望通过网页管理时，保持下面两项为空。
+      IKUAI_FAILOVER_USERNAME: ${IKUAI_FAILOVER_USERNAME:-}
+      IKUAI_FAILOVER_PASSWORD: ${IKUAI_FAILOVER_PASSWORD:-}
+      # ikuai-failover 网页登录账号密码，与爱快账号独立。
+      # 环境变量和 webui.user/pass 均未填写时，自动随机生成并保存到 data/config.yml。
+      IKB_WEBUI_USER: ${IKB_WEBUI_USER:-}
+      IKB_WEBUI_PASS: ${IKB_WEBUI_PASS:-}
+      TZ: Asia/Shanghai
+    ports:
+      # FAILOVER_BIND_IP 为宿主机的访问地址，在 .env 中设置。
+      - '${FAILOVER_BIND_IP:?请设置宿主机绑定地址}:19002:19002/tcp'
+    volumes:
+      # 配置目录需要可写，以便自动初始化和网页保存配置。
+      - ./data:/etc/ikuai-failover
+      # 保留状态目录，使切换记录、通知和登录会话在重启后继续使用。
+      - ./state:/var/lib/ikuai-failover

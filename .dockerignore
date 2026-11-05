@@ -1,0 +1,14 @@
+*
+!Cargo.toml
+!Cargo.lock
+!config.example.yml
+!Dockerfile
+!LICENSE
+!apps/
+!apps/failover/
+!apps/failover/**
+!frontends/
+!frontends/web/
+!frontends/web/**
+frontends/web/node_modules
+frontends/web/dist

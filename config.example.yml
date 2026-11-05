@@ -1,0 +1,40 @@
+ikuai:
+  base_url: https://router.example
+  username: ''
+  password: ''
+  allow_invalid_certificate: true
+  timeout_ms: 5000
+webui:
+  user: ''
+  pass: ''
+management:
+  listen: 0.0.0.0:19002
+  apply: false
+  state_dir: /var/lib/ikuai-failover
+  web_dir: /usr/share/ikuai-failover/web
+wan:
+  enabled: true
+  primary: wan1
+  backup: wan3
+  preserved_default: wan2
+  check_interval_ms: 5000
+  failure_threshold: 3
+  recovery_threshold: 5
+  stable_hold_ms: 30000
+  ipv6_enabled: false
+  domain_rules: []
+  rule_pairs: []
+notifications:
+  secrets: {}
+  enabled: false
+  timeout_ms: 10000
+  cooldown_ms: 60000
+  queue_capacity: 128
+  events: []
+  channels: []
+  templates:
+    default: |
+      {
+        "title": "{{ event_icon }} {{ title }}",
+        "text": "{% if text %}{{ text }}{% endif %}{% if transition_summary %}\n\n{{ transition_summary }}{% endif %}{% if network_summary %}\n\n{{ network_summary }}{% endif %}\n🕒 时间：{{ timestamp }}"
+      }

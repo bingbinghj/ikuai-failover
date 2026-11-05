@@ -1,0 +1,40 @@
+# Synthetic configuration for the in-memory router models.
+ikuai:
+  base_url: https://router.example
+  username: ''
+  password: ''
+  allow_invalid_certificate: true
+  timeout_ms: 5000
+webui:
+  user: ''
+  pass: ''
+management:
+  listen: 127.0.0.1:19002
+  apply: false
+  state_dir: ./state
+  web_dir: ./web
+wan:
+  enabled: true
+  primary: wan1
+  backup: wan3
+  preserved_default: wan2
+  check_interval_ms: 5000
+  failure_threshold: 3
+  recovery_threshold: 5
+  stable_hold_ms: 30000
+  ipv6_enabled: true
+  domain_rules: []
+  ipv6:
+    wan_id: 1
+    wan_tag: wan6
+    lan_id: 1
+    lan_tag: lan6
+    lan_interface: lan1
+    settle_timeout_ms: 60000
+    poll_interval_ms: 1000
+  rule_pairs:
+    - resource: load_balance_rules
+      primary_id: 1
+      backup_id: 4
+      primary_tag: wan1
+      backup_tag: wan3

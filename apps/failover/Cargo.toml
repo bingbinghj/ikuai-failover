@@ -1,0 +1,37 @@
+[package]
+name = "ikb-failover"
+version = "1.0.0"
+edition = "2024"
+license = "AGPL-3.0"
+
+[[bin]]
+name = "ikuai-failover"
+path = "src/main.rs"
+
+[dependencies]
+async-trait = "0.1"
+base64 = "0.22"
+axum = "0.8"
+clap = { version = "4.5", features = ["derive"] }
+fs2 = "0.4"
+futures-util = "0.3"
+getrandom = "0.4"
+hmac = "0.12"
+ipnet = "2"
+md5 = "0.8"
+minijinja = { version = "2", features = ["json", "fuel"] }
+pulldown-cmark = { version = "0.13", default-features = false }
+reqwest = { version = "0.12", default-features = false, features = ["json", "native-tls", "cookies"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml = "0.9"
+sha2 = "0.10"
+thiserror = "2"
+tokio = { version = "1", features = ["full"] }
+tokio-util = { version = "0.7", features = ["rt"] }
+tokio-tungstenite = { version = "0.28", features = ["native-tls"] }
+tower-http = { version = "0.6", features = ["fs"] }
+web-push-native = "0.5"
+
+[dev-dependencies]
+tempfile = "3"
